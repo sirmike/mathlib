@@ -1,0 +1,2 @@
+PROJECT(mathlib)
+SUBDIRS(src)
