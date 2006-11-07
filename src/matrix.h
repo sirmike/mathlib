@@ -14,7 +14,7 @@ const int FIELDCOUNT = 9;
 
 template<typename T> class Mat3
 {
-	private:
+	public:
 		T f[FIELDCOUNT]; //!< matrix fields (first row is f[0] f[1] f[2] and so on)
 
 		// row and col is 0..2
@@ -26,6 +26,10 @@ template<typename T> class Mat3
 		/*! Default constructor */
 		Mat3()
 		{
+			for(int i = 0; i < FIELDCOUNT; i++)
+			{
+				f[i] = 0.0;
+			}
 		}
 
 		/*! Init all matrix fields */
@@ -65,8 +69,206 @@ template<typename T> class Mat3
 			return out;
 		}
 
+		/*! Add a scalar value to the matrix */
+		Mat3<T> operator +(const T scalar)
+		{
+			return Mat3<T>(f[0] + scalar,
+					f[1] + scalar,
+					f[2] + scalar,
+					f[3] + scalar,
+					f[4] + scalar,
+					f[5] + scalar,
+					f[6] + scalar,
+					f[7] + scalar,
+					f[8] + scalar);
+		}
+
+		/*! Subtract a scalar value from the matrix */
+		Mat3<T> operator -(const T scalar)
+		{
+			return Mat3<T>(f[0] - scalar,
+					f[1] - scalar,
+					f[2] - scalar,
+					f[3] - scalar,
+					f[4] - scalar,
+					f[5] - scalar,
+					f[6] - scalar,
+					f[7] - scalar,
+					f[8] - scalar);
+		}
+
+		/*! Multiply the matrix by a scalar value */
+		Mat3<T> operator *(const T scalar)
+		{
+			return Mat3<T>(f[0] * scalar,
+					f[1] * scalar,
+					f[2] * scalar,
+					f[3] * scalar,
+					f[4] * scalar,
+					f[5] * scalar,
+					f[6] * scalar,
+					f[7] * scalar,
+					f[8] * scalar);
+		}
+
+		/*! Divide the matrix by a scalar value */
+		Mat3<T> operator /(const T scalar)
+		{
+			if(static_cast<int>(scalar) == 0)
+			{
+				return Mat3<T>();
+			}
+			else
+			{
+				return Mat3<T>(f[0] / scalar,
+						f[1] / scalar,
+						f[2] / scalar,
+						f[3] / scalar,
+						f[4] / scalar,
+						f[5] / scalar,
+						f[6] / scalar,
+						f[7] / scalar,
+						f[8] / scalar);
+			}
+		}
+
+		/*! Multiply current matrix by a scalar value */
+		Mat3<T>& operator *=(const T scalar)
+		{
+			for(int i = 0; i < FIELDCOUNT; i++)
+			{
+				f[i] *= scalar;
+			}
+			return *this;
+		}	
+
+		/*! Divide current matrix by a scalar value */
+		Mat3<T>& operator /=(const T scalar)
+		{
+			if(static_cast<int>(scalar) == 0)
+			{
+				return *this;
+			}
+			for(int i = 0; i < FIELDCOUNT; i++)
+			{
+				f[i] /= scalar;
+			}
+			return *this;
+		}	
+
+		/*! Add a scalar value to the curent matrix */
+		Mat3<T>& operator +=(const T scalar)
+		{
+			for(int i = 0; i < FIELDCOUNT; i++)
+			{
+				f[i] += scalar;
+			}
+			return *this;
+		}	
+
+		/*! Subtract a scalar value from the curent matrix */
+		Mat3<T>& operator -=(const T scalar)
+		{
+			for(int i = 0; i < FIELDCOUNT; i++)
+			{
+				f[i] -= scalar;
+			}
+			return *this;
+		}	
+
+		/*! Return value of the matrix field (0 to 8) */
+		T Field(const int index)
+		{
+			if(index > 8)
+			{
+				return this->f[8];
+			}
+			if(index < 0)
+			{
+				return f[0];
+			}
+			return f[index];
+		}
+
+		/*! Add a matrix to the current one */
+		Mat3<T> operator +(Mat3<T> &matrix)
+		{
+			return Mat3<T>(f[0] + matrix.Field(0),
+					f[1] + matrix.Field(1),
+					f[2] + matrix.Field(2),
+					f[3] + matrix.Field(3),
+					f[4] + matrix.Field(4),
+					f[5] + matrix.Field(5),
+					f[6] + matrix.Field(6),
+					f[7] + matrix.Field(7),
+					f[8] + matrix.Field(8));
+		}
+
+		/*! Add a matrix to the current one */
+		Mat3<T> operator +=(Mat3<T> &matrix)
+		{
+			for(int i = 0; i < FIELDCOUNT; i++)
+			{
+				f[i] += matrix.Field(i);
+			}
+			return Mat3<T>(f[0], f[1], f[2], f[3], f[4], f[5], f[6], f[7], f[8]);
+		}
+
+		/*! Subtract a matrix from the current one */
+		Mat3<T> operator -=(Mat3<T> &matrix)
+		{
+			for(int i = 0; i < FIELDCOUNT; i++)
+			{
+				f[i] -= matrix.Field(i);
+			}
+			return Mat3<T>(f[0], f[1], f[2], f[3], f[4], f[5], f[6], f[7], f[8]);
+		}
+
+		/*! Multiply current matrix by another one */
+		Mat3<T> operator *=(Mat3<T> &matrix)
+		{
+			f[0] *= matrix.Field(0);
+			f[1] *= matrix.Field(3);
+			f[2] *= matrix.Field(6);
+			f[3] *= matrix.Field(1);
+			f[4] *= matrix.Field(4);
+			f[5] *= matrix.Field(7);
+			f[6] *= matrix.Field(2);
+			f[7] *= matrix.Field(5);
+			f[8] *= matrix.Field(8);
+			return Mat3<T>(f[0], f[1], f[2], f[3], f[4], f[5], f[6], f[7], f[8]);
+		}
+
+		/*! Subtract a matrix from the current one */
+		Mat3<T> operator -(Mat3<T> &matrix)
+		{
+			return Mat3<T>(f[0] - matrix.Field(0),
+					f[1] - matrix.Field(1),
+					f[2] - matrix.Field(2),
+					f[3] - matrix.Field(3),
+					f[4] - matrix.Field(4),
+					f[5] - matrix.Field(5),
+					f[6] - matrix.Field(6),
+					f[7] - matrix.Field(7),
+					f[8] - matrix.Field(8));
+		}
+
+		/*! Multiply the current matrix by another one */
+		Mat3<T> operator *(Mat3<T> &matrix)
+		{
+			return Mat3<T>(f[0] * matrix.Field(0),
+					f[1] * matrix.Field(3),
+					f[2] * matrix.Field(6),
+					f[3] * matrix.Field(1),
+					f[4] * matrix.Field(4),
+					f[5] * matrix.Field(7),
+					f[6] * matrix.Field(2),
+					f[7] * matrix.Field(5),
+					f[8] * matrix.Field(8));
+		}
+
 		/*! Check if matrix is identity */
-		bool Identity()
+		bool IsIdentity()
 		{
 			int sum = 0;
 			for(int i = 0; i < FIELDCOUNT; i++)
@@ -88,6 +290,23 @@ template<typename T> class Mat3
 				}
 			}
 			return true;
+		}
+
+		/*! Set the matrix to be identity */
+		Mat3<T>& SetIdentity()
+		{
+			for(int i = 0; i < FIELDCOUNT; i++)
+			{
+				if(i == 0 ||  i == 4 || i == 8)
+				{
+					f[i] = 1.0;
+				}
+				else
+				{
+					f[i] = 0.0;
+				}
+			}
+			return *this;
 		}
 
 		/*! Inverse matrix */
@@ -159,8 +378,16 @@ template<typename T> class Mat3
 			return true;
 		}
 
+		void Inverse2()
+		{
+			*this =  (Mat3<T>(f[4] * f[8] - f[5] * f[7], f[2] * f[7] - f[1] * f[8], f[1] * f[5] - f[2] * f[4],
+						f[5] * f[6] - f[3] * f[8], f[0] * f[8] - f[2] * f[6], f[2] * f[3] - f[0] * f[5],
+						f[3] * f[7] - f[4] * f[6], f[1] * f[6] - f[0] * f[7], f[0] * f[4] - f[1] * f[3]
+						) * (1.0 / Det()));
+		}
+
 		/*! Determinant of the matrix */
-		T Determinant()
+		T Det()
 		{
 			return f[0] * (f[4] * f[8] - f[5] * f[7]) - f[1] * (f[3] * f[8] - f[5] - f[6]) + f[2] * (f[3] * f[7] - f[4] * f[6]);
 		}
