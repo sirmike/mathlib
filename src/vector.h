@@ -216,7 +216,7 @@ template <typename T> class Vec3
 		/*! Calculates a dot product between two vectors
 		\param v Second vector to calculate the Dot Product
 		*/
-		T Dot(const Vec3<T> &v)
+		T Dot(const Vec3<T> &v) const
 		{
 			return(x * v.x + y * v.y + z * v.z);
 		}
@@ -243,10 +243,10 @@ template <typename T> class Vec3
 		/*! Projects the vector onto another one
 		\param v Vector which the current vector will be projected on
 		*/
-		Vec3<T> ProjectOn(const Vec3<T> &v)
+		Vec3<T> ProjectOn(const Vec3<T> &v) const
 		{
-			T vLength = v.length();
-			return (this->dot(v) / (vLength * vLength)) * v;
+			T vLength = v.Length();
+			return (this->Dot(v) / (vLength * vLength)) * v;
 		}
 
 		// vector components

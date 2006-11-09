@@ -18,7 +18,7 @@ template<typename T> class Mat3
 		T f[FIELDCOUNT]; //!< matrix fields (first row is f[0] f[1] f[2] and so on)
 
 		// row and col is 0..2
-		T value(const int &row, const int &col)
+		T value(const int &row, const int &col) const
 		{
 			return f[3 * row + col];
 		}
@@ -177,7 +177,7 @@ template<typename T> class Mat3
 		}	
 
 		/*! Return value of the matrix field (0 to 8) */
-		T Field(const int index)
+		T Field(const int index) const
 		{
 			if(index > 8)
 			{
@@ -191,7 +191,7 @@ template<typename T> class Mat3
 		}
 
 		/*! Add a matrix to the current one */
-		Mat3<T> operator +(Mat3<T> &matrix)
+		Mat3<T> operator +(const Mat3<T> &matrix)
 		{
 			return Mat3<T>(f[0] + matrix.Field(0),
 					f[1] + matrix.Field(1),
@@ -205,7 +205,7 @@ template<typename T> class Mat3
 		}
 
 		/*! Add a matrix to the current one */
-		Mat3<T> operator +=(Mat3<T> &matrix)
+		Mat3<T> operator +=(const Mat3<T> &matrix)
 		{
 			for(int i = 0; i < FIELDCOUNT; i++)
 			{
@@ -215,7 +215,7 @@ template<typename T> class Mat3
 		}
 
 		/*! Subtract a matrix from the current one */
-		Mat3<T> operator -=(Mat3<T> &matrix)
+		Mat3<T> operator -=(const Mat3<T> &matrix)
 		{
 			for(int i = 0; i < FIELDCOUNT; i++)
 			{
@@ -225,7 +225,7 @@ template<typename T> class Mat3
 		}
 
 		/*! Multiply current matrix by another one */
-		Mat3<T> operator *=(Mat3<T> &matrix)
+		Mat3<T> operator *=(const Mat3<T> &matrix)
 		{
 			f[0] *= matrix.Field(0);
 			f[1] *= matrix.Field(3);
@@ -240,7 +240,7 @@ template<typename T> class Mat3
 		}
 
 		/*! Subtract a matrix from the current one */
-		Mat3<T> operator -(Mat3<T> &matrix)
+		Mat3<T> operator -(const Mat3<T> &matrix)
 		{
 			return Mat3<T>(f[0] - matrix.Field(0),
 					f[1] - matrix.Field(1),
@@ -254,7 +254,7 @@ template<typename T> class Mat3
 		}
 
 		/*! Multiply the current matrix by another one */
-		Mat3<T> operator *(Mat3<T> &matrix)
+		Mat3<T> operator *(const Mat3<T> &matrix)
 		{
 			return Mat3<T>(f[0] * matrix.Field(0),
 					f[1] * matrix.Field(3),
@@ -268,7 +268,7 @@ template<typename T> class Mat3
 		}
 
 		/*! Check if matrix is identity */
-		bool IsIdentity()
+		bool IsIdentity() const
 		{
 			int sum = 0;
 			for(int i = 0; i < FIELDCOUNT; i++)
@@ -387,7 +387,7 @@ template<typename T> class Mat3
 		}
 
 		/*! Determinant of the matrix */
-		T Det()
+		T Det() const
 		{
 			return f[0] * (f[4] * f[8] - f[5] * f[7]) - f[1] * (f[3] * f[8] - f[5] - f[6]) + f[2] * (f[3] * f[7] - f[4] * f[6]);
 		}
