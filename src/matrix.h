@@ -69,6 +69,20 @@ template<typename T> class Mat3
 			return out;
 		}
 
+		/*! Multiply scalar value by a matrix */
+		friend Mat3<T> operator *(const T &scalar, const Mat3<T> &matrix)
+		{
+			return Mat3<T>(matrix.Field(0) * scalar,
+					matrix.Field(1) * scalar,
+					matrix.Field(2) * scalar,
+					matrix.Field(3) * scalar,
+					matrix.Field(4) * scalar,
+					matrix.Field(5) * scalar,
+					matrix.Field(6) * scalar,
+					matrix.Field(7) * scalar,
+					matrix.Field(8) * scalar);
+		}
+
 		/*! Add a scalar value to the matrix */
 		Mat3<T> operator +(const T scalar)
 		{
@@ -309,8 +323,8 @@ template<typename T> class Mat3
 			return *this;
 		}
 
-		/*! Inverse matrix */
-		bool Inverse()
+		/*! Inverse matrix using Gauss-Jordan elimination */
+		bool InverseGaussian()
 		{
 			T augmentedMatrix[] = {f[0], f[1], f[2], 1.0, 0.0, 0.0,
 						f[3], f[4], f[5], 0.0, 1.0, 0.0,
@@ -378,18 +392,18 @@ template<typename T> class Mat3
 			return true;
 		}
 
-		void Inverse2()
+		void Inverse()
 		{
-			*this =  (Mat3<T>(f[4] * f[8] - f[5] * f[7], f[2] * f[7] - f[1] * f[8], f[1] * f[5] - f[2] * f[4],
+			*this =  (1.0 / Det()) * Mat3<T>(f[4] * f[8] - f[5] * f[7], f[2] * f[7] - f[1] * f[8], f[1] * f[5] - f[2] * f[4],
 						f[5] * f[6] - f[3] * f[8], f[0] * f[8] - f[2] * f[6], f[2] * f[3] - f[0] * f[5],
 						f[3] * f[7] - f[4] * f[6], f[1] * f[6] - f[0] * f[7], f[0] * f[4] - f[1] * f[3]
-						) * (1.0 / Det()));
+						);
 		}
 
 		/*! Determinant of the matrix */
 		T Det() const
 		{
-			return f[0] * (f[4] * f[8] - f[5] * f[7]) - f[1] * (f[3] * f[8] - f[5] - f[6]) + f[2] * (f[3] * f[7] - f[4] * f[6]);
+			return f[0] * (f[4] * f[8] - f[5] * f[7]) - f[1] * (f[3] * f[8] - f[5] * f[6]) + f[2] * (f[3] * f[7] - f[4] * f[6]);
 		}
 
 		/*! Transpose matrix */
