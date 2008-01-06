@@ -428,4 +428,4 @@ template<typename T> class Mat3
 
 typedef Mat3<float> Mat3f;	//!< 3x3 Matrix of floats
 typedef Mat3<double> Mat3d;	//!< 3x3 Matrix of doubles
-
+typedef Mat3f Matrix;

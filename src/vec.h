@@ -66,25 +66,25 @@ template <typename T> class Vec3
 
 
 		/*! Adds scalar value to the vector */
-		Vec3<T> operator +(const T scalar)
+		Vec3<T> operator +(const T& scalar)
 		{
 			return Vec3(x + scalar, y + scalar, z + scalar);
 		}
 
 		/*! Subtracts scalar value from the vector */
-		Vec3<T> operator -(const T scalar)
+		Vec3<T> operator -(const T& scalar)
 		{
 			return Vec3(x - scalar, y - scalar, z - scalar);
 		}
 
 		/*! Multiplies the vector by a scalar value */
-		Vec3<T> operator *(const T scalar)
+		Vec3<T> operator *(const T& scalar)
 		{
 			return Vec3(x * scalar, y * scalar, z * scalar);
 		}
 
 		/*! Divides the vector by a scalar value */
-		Vec3<T> operator /(const T scalar)
+		Vec3<T> operator /(const T& scalar)
 		{
 			return Vec3<T>(x / scalar, y / scalar, z / scalar);
 		}
@@ -123,7 +123,7 @@ template <typename T> class Vec3
 		}
 
 		/*! Multiplies the current vector by a scalar value */
-		Vec3<T>& operator *=(const T scalar)
+		Vec3<T>& operator *=(const T& scalar)
 		{
 			x *= scalar;
 			y *= scalar;
@@ -132,14 +132,14 @@ template <typename T> class Vec3
 		}
 
 		/*! Divides the current vector by a scalar value */
-		Vec3<T>& operator /=(const T scalar)
+		Vec3<T>& operator /=(const T& scalar)
 		{
 			*this *= (1.0f / scalar);
 			return *this;
 		}
 
 		/*! Adds a scalar value to the current vector */
-		Vec3<T>& operator +=(const T scalar)
+		Vec3<T>& operator +=(const T& scalar)
 		{
 			x += scalar;
 			y += scalar;
@@ -148,11 +148,20 @@ template <typename T> class Vec3
 		}
 
 		/*! Subtracts a scalar value from the current vector */
-		Vec3<T>& operator -=(const T scalar)
+		Vec3<T>& operator -=(const T& scalar)
 		{
 			x -= scalar;
 			y -= scalar;
 			z -= scalar;
+			return *this;
+		}
+
+		/*! Sets x y z to scalar value */
+		Vec3<T>& operator =(const T& scalar)
+		{
+			x = scalar;
+			y = scalar;
+			z = scalar;
 			return *this;
 		}
 
@@ -176,7 +185,7 @@ template <typename T> class Vec3
 		* r = 4 * P;
 		* \endcode
 		*/
-		friend Vec3<T> operator *(const T scalar, const Vec3<T> &v)
+		friend Vec3<T> operator *(const T& scalar, const Vec3<T> &v)
 		{
 			return Vec3<T>(v.x * scalar, v.y * scalar, v.z * scalar);
 		}
@@ -237,7 +246,14 @@ template <typename T> class Vec3
 			{
 				(*this) *= static_cast<T>(1.0 / magnitude);
 			}
-			return magnitude;
+		}
+
+		/*! Flips the vector */
+		void Flip()
+		{
+			x = -x;
+			y = -y;
+			z = -z;
 		}
 
 		/*! Projects the vector onto another one
@@ -258,3 +274,4 @@ template <typename T> class Vec3
 typedef Vec3<float> Vec3f;	//!< 3d Vector of floats
 typedef Vec3<double> Vec3d;	//!< 3d Vector of doubles
 typedef Vec3<int> Vec3i;	//!< 3d Vector of integers
+typedef Vec3f Point3f;
