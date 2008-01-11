@@ -8,6 +8,7 @@
 namespace MathLib
 {
 	class Mat4;
+	std::ostream & operator << (std::ostream &out, const MathLib::Mat4 &v);
 
 	/*! Defines PI value */
 	const float PI = 3.14159f;
