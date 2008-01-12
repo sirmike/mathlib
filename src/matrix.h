@@ -48,30 +48,6 @@ namespace MathLib
 		/*! Assign a matrix */
 		void operator =(const Mat4& matrix);
 
-		/*! Add a scalar to the matrix */
-		Mat4 operator +(const float& scalar) const;
-		
-		/*! Subtract a scalar from the matrix */
-		Mat4 operator -(const float& scalar) const;
-
-		/*! Multiply the matrix by a scalar */
-		Mat4 operator *(const float& scalar) const;
-
-		/*! Divide the matrix by a scalar */
-		Mat4 operator /(const float& scalar) const;
-
-		/*! Add a scalar to the matrix (makes modifications to the matrix) */
-		const Mat4& operator +=(const float& scalar);
-
-		/*! Subtract a scalar from the matrix (makes modifications to the matrix) */
-		const Mat4& operator -=(const float& scalar);
-
-		/*! Multiply the matrix by a scalar (makes modifications to the matrix) */
-		const Mat4& operator *=(const float& scalar);
-
-		/*! Divide the matrix by a scalar (makes modifications to the matrix) */
-		const Mat4& operator /=(const float& scalar);
-
 		/*! Add a matrix to another matrix */
 		Mat4 operator +(const Mat4& matrix);
 
@@ -80,9 +56,6 @@ namespace MathLib
 
 		/*! Multiplies a matrix by another matrix */
 		Mat4 operator *(const Mat4& matrix);
-
-		/*! Multiplies a matrix by another matrix (makes modifications to the matrix) */
-		const Mat4& operator *=(const Mat4& matrix);
 
 		/*! Check if it is an identity matrix */
 		bool IsIdentity() const;

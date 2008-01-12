@@ -70,7 +70,6 @@ namespace MathLib
 				return Vec3(x / v.x, y / v.y, z / v.z);
 			}
 
-
 			/*! Adds scalar value to the vector */
 			Vec3<T> operator +(const T& scalar)
 			{

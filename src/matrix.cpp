@@ -55,108 +55,6 @@ void Mat4::operator =(const Mat4& matrix)
 	memcpy(&this->m, &matrix.m, 16 * sizeof(float));
 }
 
-Mat4 Mat4::operator +(const float& scalar) const
-{
-	Mat4 result;
-	for(int i = 0; i < 4; i++)
-	{
-		for(int j = 0; j < 4; j++)
-		{
-			result.m[i][j] = this->m[i][j] + scalar;
-		}
-	}
-	return result;
-}
-
-Mat4 Mat4::operator -(const float& scalar) const
-{
-	Mat4 result;
-	for(int i = 0; i < 4; i++)
-	{
-		for(int j = 0; j < 4; j++)
-		{
-			result.m[i][j] = this->m[i][j] - scalar;
-		}
-	}
-	return result;
-}
-
-Mat4 Mat4::operator *(const float& scalar) const
-{
-	Mat4 result;
-	for(int i = 0; i < 4; i++)
-	{
-		for(int j = 0; j < 4; j++)
-		{
-			result.m[i][j] = this->m[i][j] * scalar;
-		}
-	}
-	return result;
-}
-
-
-Mat4 Mat4::operator /(const float& scalar) const
-{
-	Mat4 result;
-	for(int i = 0; i < 4; i++)
-	{
-		for(int j = 0; j < 4; j++)
-		{
-			result.m[i][j] = this->m[i][j] / scalar;
-		}
-	}
-	return result;
-}
-
-
-const Mat4& Mat4::operator +=(const float& scalar)
-{
-	for(int i = 0; i < 4; i++)
-	{
-		for(int j = 0; j < 4; j++)
-		{
-			this->m[i][j] += scalar;
-		}
-	}
-	return *this;
-}
-
-const Mat4& Mat4::operator -=(const float& scalar)
-{
-	for(int i = 0; i < 4; i++)
-	{
-		for(int j = 0; j < 4; j++)
-		{
-			this->m[i][j] -= scalar;
-		}
-	}
-	return *this;
-}
-
-const Mat4& Mat4::operator *=(const float& scalar)
-{
-	for(int i = 0; i < 4; i++)
-	{
-		for(int j = 0; j < 4; j++)
-		{
-			this->m[i][j] *= scalar;
-		}
-	}
-	return *this;
-}
-
-const Mat4& Mat4::operator /=(const float& scalar)
-{
-	for(int i = 0; i < 4; i++)
-	{
-		for(int j = 0; j < 4; j++)
-		{
-			this->m[i][j] /= scalar;
-		}
-	}
-	return *this;
-}
-
 Mat4 Mat4::operator +(const Mat4& matrix)
 {
 	Mat4 result;
@@ -184,7 +82,7 @@ const Mat4& Mat4::operator +=(const Mat4& matrix)
 
 Mat4 Mat4::operator *(const Mat4& matrix)
 {
-	Mat4 result(*this);
+	Mat4 result;
 	for(int i = 0; i < 4; i++)
 	{
 		for(int j = 0; j < 4; j++)
@@ -197,18 +95,6 @@ Mat4 Mat4::operator *(const Mat4& matrix)
 		}
 	}
 	return result;
-}
-
-const Mat4& Mat4::operator *=(const Mat4& matrix)
-{
-	for(int i = 0; i < 4; i++)
-	{
-		for(int j = 0; j < 4; j++)
-		{
-			this->m[i][j] *= matrix.m[j][i];
-		}
-	}
-	return *this;
 }
 
 bool Mat4::IsIdentity() const
