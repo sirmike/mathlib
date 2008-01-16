@@ -2,6 +2,8 @@
 #include "functions.h"
 #include "matrix.h"
 
+using namespace MathLib;
+
 float MathLib::DegreesToRadians(float degrees) 
 {
 	return degrees * (PI / 180.0f);
@@ -125,3 +127,4 @@ std::ostream & MathLib::operator << (std::ostream &out, const MathLib::Mat4 &v)
 	}
 	return out;
 }
+

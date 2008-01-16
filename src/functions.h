@@ -1,13 +1,15 @@
 #ifndef MATH_FUNCTIONS_H
 #define MATH_FUNCTIONS_H
 
+#include "vec.h"
+#include "matrix.h"
+
 /*! \file functions.h
     \brief Contains helper functions
 */
 
 namespace MathLib
 {
-	class Mat4;
 	std::ostream & operator << (std::ostream &out, const MathLib::Mat4 &v);
 
 	/*! Defines PI value */
