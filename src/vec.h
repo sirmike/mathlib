@@ -16,7 +16,6 @@ namespace MathLib
 	  Allows mathematical operations on a 3D vector.
 	  Includes several operators and basic functions such as dot or cross product.
 	  */
-
 	template <typename T> class Vec3
 	{
 		public:

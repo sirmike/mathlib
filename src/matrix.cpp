@@ -83,17 +83,27 @@ const Mat4& Mat4::operator +=(const Mat4& matrix)
 Mat4 Mat4::operator *(const Mat4& matrix)
 {
 	Mat4 result;
-	for(int i = 0; i < 4; i++)
-	{
-		for(int j = 0; j < 4; j++)
-		{
-			result.m[i][j] = 0.0f;
-			for(int k = 0; k < 4; k++)
-			{
-				result.m[i][j] += m[i][k] * matrix.m[k][j];
-			}
-		}
-	}
+
+	result._11 = this->_11 * matrix._11 + this->_21 * matrix._12 + this->_31 * matrix._13 + this->_41 * matrix._14;
+	result._12 = this->_12 * matrix._11 + this->_22 * matrix._12 + this->_32 * matrix._13 + this->_42 * matrix._14;
+	result._13 = this->_13 * matrix._11 + this->_23 * matrix._12 + this->_33 * matrix._13 + this->_43 * matrix._14;
+	result._14 = this->_14 * matrix._11 + this->_24 * matrix._12 + this->_34 * matrix._13 + this->_44 * matrix._14;
+
+	result._21 = this->_11 * matrix._21 + this->_21 * matrix._22 + this->_31 * matrix._23 + this->_41 * matrix._24;
+	result._22 = this->_12 * matrix._21 + this->_22 * matrix._22 + this->_32 * matrix._23 + this->_42 * matrix._24;
+	result._23 = this->_13 * matrix._21 + this->_23 * matrix._22 + this->_33 * matrix._23 + this->_43 * matrix._24;
+	result._24 = this->_14 * matrix._21 + this->_24 * matrix._22 + this->_34 * matrix._23 + this->_44 * matrix._24;
+
+	result._31 = this->_11 * matrix._31 + this->_21 * matrix._32 + this->_31 * matrix._33 + this->_41 * matrix._34;
+	result._32 = this->_12 * matrix._31 + this->_22 * matrix._32 + this->_32 * matrix._33 + this->_42 * matrix._34;
+	result._33 = this->_13 * matrix._31 + this->_23 * matrix._32 + this->_33 * matrix._33 + this->_43 * matrix._34;
+	result._34 = this->_14 * matrix._31 + this->_24 * matrix._32 + this->_34 * matrix._33 + this->_44 * matrix._34;
+
+	result._41 = this->_11 * matrix._41 + this->_21 * matrix._42 + this->_31 * matrix._43 + this->_41 * matrix._44;
+	result._42 = this->_12 * matrix._41 + this->_22 * matrix._42 + this->_32 * matrix._43 + this->_42 * matrix._44;
+	result._43 = this->_13 * matrix._41 + this->_23 * matrix._42 + this->_33 * matrix._43 + this->_43 * matrix._44;
+	result._44 = this->_14 * matrix._41 + this->_24 * matrix._42 + this->_34 * matrix._43 + this->_44 * matrix._44;
+
 	return result;
 }
 
