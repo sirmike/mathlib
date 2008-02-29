@@ -26,7 +26,7 @@ namespace MathLib
 				float _21, _22, _23, _24;
 				float _31, _32, _33, _34;
 				float _41, _42, _43, _44;	// translation _41, _42, _43
-			};
+			} data;
 			float m[4][4];
 		};
 
@@ -68,6 +68,9 @@ namespace MathLib
 
 		/*! Returns value by a row and a column */
 		float GetValue(const int& row, const int& col) const;
+
+		/*! Returns pointer on the begining of a matrix */
+		const float* GetPointer() const;
 	};
 
 	typedef Mat4 Matrix;
