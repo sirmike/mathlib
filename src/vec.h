@@ -292,6 +292,46 @@ namespace MathLib
 	typedef Vec3<int> Vec3i;	//!< 3d Vector of integers
 	typedef Vec3f Vector;
 	typedef Vec3f Point3f;
+
+	struct Point2f
+	{
+		public:
+			float x, y;
+			Point2f(){};
+			Point2f(float x, float y)
+			{
+				this->x = x;
+				this->y = y;
+			}
+	};
+
+	struct Color3f
+	{
+		public:
+			float r, g, b;
+			Color3f(){};
+			Color3f(float r, float g, float b)
+			{
+				this->r = r;
+				this->g = g;
+				this->b = b;
+			}
+	};
+
+	struct Color4f
+	{
+		public:
+			float r, g, b, a;
+			Color4f(){};
+			Color4f(float r, float g, float b, float a)
+			{
+				this->r = r;
+				this->g = g;
+				this->b = b;
+				this->a = a;
+			}
+	};
+
 }
 
 #endif
