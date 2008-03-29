@@ -273,9 +273,9 @@ namespace MathLib
 			Vec3<T>& Transform(const Mat4 &matrix)
 			{
 				Vec3<T> result;
-				result.x = x * matrix._11 + y * matrix._12 + z * matrix._13 + matrix._41;
-				result.y = x * matrix._21 + y * matrix._22 + z * matrix._23 + matrix._42;
-				result.z = x * matrix._31 + y * matrix._32 + z * matrix._33 + matrix._43;
+				result.x = x * matrix.data._11 + y * matrix.data._12 + z * matrix.data._13 + matrix.data._41;
+				result.y = x * matrix.data._21 + y * matrix.data._22 + z * matrix.data._23 + matrix.data._42;
+				result.z = x * matrix.data._31 + y * matrix.data._32 + z * matrix.data._33 + matrix.data._43;
 				*this = result;
 				return *this;
 			}
