@@ -1,6 +1,6 @@
 #include "matrix.h"
 #include "functions.h"
-#include <memory>
+#include <cstring>
 
 using namespace MathLib;
 
