@@ -310,11 +310,32 @@ namespace MathLib
 		public:
 			float r, g, b;
 			Color3f(){};
+			Color3f(float scalar)
+			{
+				r = g = b = scalar;
+			}
+
 			Color3f(float r, float g, float b)
 			{
 				this->r = r;
 				this->g = g;
 				this->b = b;
+			}
+			
+			Color3f& operator = (float scalar)
+			{
+				r = scalar;
+				g = scalar;
+				b = scalar;
+				return *this;
+			}
+
+			Color3f& operator += (float scalar)
+			{
+				r += scalar;
+				g += scalar;
+				b += scalar;
+				return *this;
 			}
 	};
 
