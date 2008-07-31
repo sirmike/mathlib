@@ -3,6 +3,7 @@
 
 #include "vec.h"
 #include "matrix.h"
+#include <list>
 
 /*! \file functions.h
     \brief Contains helper functions
@@ -33,6 +34,13 @@ namespace MathLib
 	/*! Changes degrees to radians */
 	float DegreesToRadians(float degrees);
 
+	template<class T, class Iterator> Iterator Advance(T &dataContainer, Iterator &itemPos, int skipSize);
+
+	/*! Performs CatmullRom calculations on a dataContainer */
+	Point3f CatmullRom(std::list<Point3f> &dataContainer, std::list<Point3f>::iterator &itemPos, const float &time);
+
+	/*! Performs Bezier calculations on a dataContainer */
+	Point3f Bezier(std::list<Point3f> &dataContainer, std::list<Point3f>::iterator &itemPos, const float &time);
 }
 
 #endif

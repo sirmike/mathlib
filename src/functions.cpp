@@ -1,8 +1,10 @@
 #include <sstream>
+#include <exception>
 #include "functions.h"
 #include "matrix.h"
 
 using namespace MathLib;
+using namespace std;
 
 float MathLib::DegreesToRadians(float degrees) 
 {
@@ -128,3 +130,86 @@ std::ostream & MathLib::operator << (std::ostream &out, const MathLib::Mat4 &v)
 	return out;
 }
 
+template<class T, class Iterator> Iterator MathLib::Advance(T &dataContainer, Iterator &itemPos, int skipSize)
+{
+	Iterator result = itemPos;
+
+	if(skipSize == 0)
+	{
+		return result;
+	}
+
+	for(int i = 0; i < abs(skipSize); i++)
+	{
+		if(skipSize > 0)
+		{
+			if(result == --(dataContainer.end()))
+			{
+				result = dataContainer.begin();
+			}
+			else
+			{
+				result++;
+			}
+		}
+		if(skipSize < 0)
+		{
+			if(result == dataContainer.begin())
+			{
+				result = --(dataContainer.end());
+			}
+			else
+			{
+				result--;
+			}
+		}
+	}
+
+	return result;
+}
+
+MathLib::Point3f MathLib::CatmullRom(list<Point3f> &dataContainer, 
+									 list<Point3f>::iterator &itemPos, 
+									 const float &time)
+{
+	if(dataContainer.size() < 4)
+	{
+		throw std::range_error("dataContainer must have at least 4 elements.");
+	}
+
+	float t_2 = time * time;
+	float t_3 = t_2 * time;
+
+	Point3f p0 = *(Advance(dataContainer, itemPos, -1));
+	Point3f p1 = *(itemPos);
+	Point3f p2 = *(Advance(dataContainer, itemPos, 1));
+	Point3f p3 = *(Advance(dataContainer, itemPos, 2));
+
+	
+	Point3f result(0.0f, 0.0f, 0.0f);
+	
+	result = 0.5f * ((2.0f * p1) + (-p0 + p2) * time + (2.0f * p0 - 5.0f * p1 + 4.0f * p2 - p3) * t_2 + (-p0 + 3.0f * p1 - 3.0f * p2 + p3) * t_3);
+	
+	return result;
+}
+
+MathLib::Point3f MathLib::Bezier(list<MathLib::Point3f> &dataContainer,
+								 list<Point3f>::iterator &itemPos, 
+								 const float &time)
+{
+	if(dataContainer.size() < 4)
+	{
+		throw std::range_error("dataContainer must have at least 4 elements.");
+	}
+
+	float t_1 = 1.0f - time;
+	float t_2 = (1.0f - time) * time;
+	float t_3 = (1.0f - time) * t_2;
+	
+	MathLib::Point3f p0 = *itemPos;
+	MathLib::Point3f p1 = *(Advance(dataContainer, itemPos, 1));
+	MathLib::Point3f p2 = *(Advance(dataContainer, itemPos, 2));
+	MathLib::Point3f p3 = *(Advance(dataContainer, itemPos, 3));
+
+	return t_3 * p0 + 3 * time * t_2 * p1 + 3 * time * time * t_1 * p2 + time * time * time * p3;
+}
