@@ -330,6 +330,21 @@ namespace MathLib
 				return *this;
 			}
 
+			Color3f(const Point3f &point)
+			{
+				this->r = point.x;
+				this->g = point.y;
+				this->b = point.z;
+			}
+
+			Color3f& operator += (const Color3f &values)
+			{
+				this->r += values.r;
+				this->g += values.g;
+				this->b += values.b;
+				return *this;
+			}
+
 			Color3f& operator += (float scalar)
 			{
 				r += scalar;

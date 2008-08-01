@@ -41,6 +41,9 @@ namespace MathLib
 
 	/*! Performs Bezier calculations on a dataContainer */
 	Point3f Bezier(std::list<Point3f> &dataContainer, std::list<Point3f>::iterator &itemPos, const float &time);
+
+	/*! Performs linear interpolation calculations on a dataContainer */
+	Point3f LinearInterpolation(std::list<Point3f> &dataContainer, std::list<Point3f>::iterator itemPos, const float &time);
 }
 
 #endif

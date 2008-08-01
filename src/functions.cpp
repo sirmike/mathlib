@@ -213,3 +213,11 @@ MathLib::Point3f MathLib::Bezier(list<MathLib::Point3f> &dataContainer,
 
 	return t_3 * p0 + 3 * time * t_2 * p1 + 3 * time * time * t_1 * p2 + time * time * time * p3;
 }
+
+MathLib::Point3f MathLib::LinearInterpolation(list<MathLib::Point3f> &dataContainer, list<MathLib::Point3f>::iterator itemPos, const float &time)
+{
+	MathLib::Point3f p0 = *itemPos;
+	MathLib::Point3f p1 = *++itemPos;
+	
+	return (p0 * (1 - time) + p1 * time);
+}
