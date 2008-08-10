@@ -1,5 +1,7 @@
 #include <sstream>
 #include <exception>
+#include <cstdlib>
+#include <stdexcept>
 #include "functions.h"
 #include "matrix.h"
 
